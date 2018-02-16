@@ -7,9 +7,9 @@ import {
   Menu
 } from 'semantic-ui-react';
 
-const Header = () => {
+const MainMenu = (props) => {
   return (
-    <Menu fixed='top' size='massive' borderless>
+    <Menu size='massive' borderless>
       <Container>
         <Menu.Item header>
           Readable
@@ -27,6 +27,6 @@ const Header = () => {
       </Container>
     </Menu>
   )
-}
+} 
 
-export default Header;
+export default MainMenu;
