@@ -15,7 +15,11 @@ const Header = () => {
           Readable
         </Menu.Item>
         <Menu.Item position='right'>
-          <Button icon labelPosition='left'>
+          <Button icon 
+            labelPosition='left'
+            as={Link}
+            to='/posts/new'
+          >
             <Icon name='add'/>
             New Post
           </Button>
