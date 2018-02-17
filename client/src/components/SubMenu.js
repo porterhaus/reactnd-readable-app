@@ -26,8 +26,8 @@ const SubMenu = (props) => {
         </Menu.Item>
         <Menu.Item 
           as={NavLink}
-          exact 
           to='/' 
+          exact
           key={'all'} 
           name='all' 
         >
@@ -37,7 +37,6 @@ const SubMenu = (props) => {
           _.map(props.categories, category => (
             <Menu.Item 
               as={NavLink} 
-              exact
               to={`/${category.path}`} 
               key={`${category.name}`}
               name={`${category.name}`}
@@ -48,7 +47,7 @@ const SubMenu = (props) => {
         }
         <Menu.Menu position='right'>
           <Menu.Item header>
-          Sort By
+            Sort By
           </Menu.Item>
           <Select options={options} />
         </Menu.Menu>

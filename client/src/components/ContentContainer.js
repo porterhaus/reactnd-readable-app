@@ -2,7 +2,10 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch } from 'react-router-dom';
+
 import { Container } from 'semantic-ui-react';
+import PostsList from './PostsList';
+
 import { fetchPosts } from '../actions/posts_actions';
 
 class Content extends Component {
@@ -25,15 +28,11 @@ class Content extends Component {
             path='/'
             render={
               () => (
-                <div>
-                  <h1>
-                    Home
-                  </h1>
-                </div>
+                <PostsList posts={this.props.posts} />
               )
             }
           />
-          <Route exact
+          {/* <Route exact
             path='/posts/new'
             render={
               () => (
@@ -44,20 +43,21 @@ class Content extends Component {
                 </div>
               )
             }
-          />
+          /> */}
           <Route exact 
             path='/:category'
             render={
               ({ match }) => (
-                <div>
-                  <h1>
-                    Posts about { match.params.category }
-                  </h1>
-                </div>
+                <PostsList posts={
+                _.filter(
+                  this.props.posts, 
+                  post => post.category === match.params.category
+                )
+                } />
               )
             }
           />
-          <Route exact
+          {/* <Route exact
             path='/:category/:post_id'
             render={
               ({ match }) => (
@@ -68,7 +68,7 @@ class Content extends Component {
                 </div>
               )
             }
-          />
+          /> */}
         </Switch>
       </Container>
     )

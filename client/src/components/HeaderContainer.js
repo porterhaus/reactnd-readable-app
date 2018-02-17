@@ -26,4 +26,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { fetchCategories })(Header);
+export default connect(mapStateToProps, { fetchCategories }, null, { pure: false })(Header);
