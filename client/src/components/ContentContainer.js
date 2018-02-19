@@ -1,7 +1,7 @@
-import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch } from 'react-router-dom';
+import _ from 'lodash';
 
 import { Container } from 'semantic-ui-react';
 import PostsList from './PostsList';

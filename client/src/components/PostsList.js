@@ -1,6 +1,6 @@
-import _ from 'lodash';
 import React from 'react';
-import { Container, Item } from 'semantic-ui-react';
+import _ from 'lodash';
+import { Container } from 'semantic-ui-react';
 import PostsListItem from './PostsListItem';
 
 const PostsList = props => {
@@ -8,17 +8,14 @@ const PostsList = props => {
 
   return (
     <Container text>
-      <Item.Group>
-        Posts List
-        {
-          _.map(posts, post => (
-            <PostsListItem 
-              post={post} 
-              key={post.id} 
-            />
-          ))
-        }
-      </Item.Group>
+      {
+        _.map(posts, post => (
+          <PostsListItem 
+            post={post} 
+            key={post.id} 
+          />
+        ))
+      }
     </Container>
   )
 }

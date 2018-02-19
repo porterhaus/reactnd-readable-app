@@ -1,0 +1,7 @@
+.ui.label>.icon,
+i.icon {
+  margin-right: 0 !important;
+}
+p {
+  font-size: 1.33em;
+}
