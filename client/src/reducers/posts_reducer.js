@@ -1,7 +1,8 @@
 import _ from 'lodash';
 import {
   FETCH_POSTS_SUCCESS,
-  POST_VOTE_SUCCESS
+  POST_VOTE_SUCCESS,
+  DELETE_POST_SUCCESS
 } from '../actions/posts_actions';
 
 export function posts (state={}, action) {
@@ -14,6 +15,9 @@ export function posts (state={}, action) {
         ...state,
         [action.post.id]: action.post
       }
+    
+    case DELETE_POST_SUCCESS:
+      return _.filter(state, post => post.id !== action.id)
   
     default:
       return state;

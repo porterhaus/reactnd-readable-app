@@ -1,12 +1,16 @@
 import React from 'react';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
-import { Icon, Header, Button, Segment, Label, Popup } from 'semantic-ui-react';
+import { Icon, Header, Segment, Label, Popup } from 'semantic-ui-react';
 import '../styles/PostListItem.css';
 import { formatDate } from '../utils';
 
 const PostsListItem = props => {
-  const { post, postVote } = props;
+  const { 
+    post, 
+    postVote,
+    deletePost
+  } = props;
 
   return (
     <Segment vertical>
@@ -56,7 +60,12 @@ const PostsListItem = props => {
         <span style={{ float: 'right' }}>
           <Popup
             trigger={
-              <Label as='a'>
+              <Label 
+                as='a'
+                onClick={
+                  () => console.log('Edit post!')
+                }
+              >
                 <Icon name='write' />
               </Label>
             }
@@ -64,7 +73,12 @@ const PostsListItem = props => {
           />
           <Popup
             trigger={
-              <Label as='a'>
+              <Label 
+                as='a'
+                onClick={
+                  () => deletePost(post.id)
+                }
+              >
                 <Icon name='remove' />
               </Label>
             }

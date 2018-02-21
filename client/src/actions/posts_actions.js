@@ -3,6 +3,7 @@ import * as API from '../api';
 export const SORT_POSTS_BY = 'SORT_POSTS_BY';
 export const FETCH_POSTS_SUCCESS = 'FETCH_POSTS_SUCCESS';
 export const POST_VOTE_SUCCESS = 'POST_VOTE_SUCCESS';
+export const DELETE_POST_SUCCESS = 'DELETE_POST_SUCCESS';
 
 export const sortPostsBy = sortby => (
   {
@@ -25,6 +26,13 @@ export const postVoteSuccess = post => (
   }
 )
 
+export const deletePostSuccess = id => (
+  {
+    type: DELETE_POST_SUCCESS,
+    id
+  }
+)
+
 export const fetchPosts = () => dispatch => {
   API
     .getPosts()
@@ -37,4 +45,10 @@ export const postVote = (id, option) => dispatch => {
   API
     .postVote(id, option)
     .then(post => dispatch(postVoteSuccess(post.data)));
+}
+
+export const deletePost = (id) => dispatch => {
+  API
+    .deletePost(id)
+    .then(() => dispatch(deletePostSuccess(id)));
 }

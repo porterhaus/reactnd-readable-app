@@ -4,7 +4,11 @@ import { Container } from 'semantic-ui-react';
 import PostsListItem from './PostsListItem';
 
 const PostsList = props => {
-  const { posts, postVote } = props;
+  const {
+    posts, 
+    postVote,
+    deletePost 
+  } = props;
 
   return (
     <Container>
@@ -14,6 +18,7 @@ const PostsList = props => {
             key={post.id}  
             post={post} 
             postVote={postVote}
+            deletePost={deletePost}
           />
         ))
       }

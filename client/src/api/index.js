@@ -22,5 +22,8 @@ export const getCategories = () => {
 
 export const postVote = (id, option) => {
   return axios.post(`${BASE_URL}/posts/${id}`, { option: option }, { headers: HEADERS })
-              .then(vote => vote);
-}
+              .then(vote => vote);}
+
+export const deletePost = (id) => {
+  return axios.delete(`${BASE_URL}/posts/${id}`, { headers: HEADERS })
+              .then(post => post);}
