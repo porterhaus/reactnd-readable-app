@@ -2,6 +2,14 @@
 i.icon {
   margin-right: 0 !important;
 }
-p {
-  font-size: 1.33em;
+.sub.header {
+  font-size: 1.33rem !important;
+  line-height: 1.33em !important;
+  margin-top: 0.25rem !important;
+}
+.ui.label>.close.icon, .ui.label>.delete.icon {
+  margin-left: 0 !important;
+}
+.ui.secondary.menu .header.item {
+  margin-left: .5em !important;
 }

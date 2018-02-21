@@ -7,7 +7,7 @@ const PostsList = props => {
   const { posts } = props;
 
   return (
-    <Container text>
+    <Container>
       {
         _.map(posts, post => (
           <PostsListItem 
