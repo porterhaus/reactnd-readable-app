@@ -49,7 +49,11 @@ const SubMenu = (props) => {
           <Menu.Item header>
             Sort By
           </Menu.Item>
-          <Select options={options} />
+          <Select
+            onChange={(e, {value}) => props.sortPostsBy(value)}
+            options={options}
+            value={props.sortPostsByValue}
+          />
         </Menu.Menu>
       </Container>
     </Menu>

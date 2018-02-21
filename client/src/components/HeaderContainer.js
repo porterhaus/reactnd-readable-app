@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import MainMenu from './MainMenu';
 import { fetchCategories } from '../actions/categories_actions';
+import { sortPostsBy } from '../actions/posts_actions';
 import SubMenu from './SubMenu';
 
 class Header extends Component {
@@ -10,11 +11,20 @@ class Header extends Component {
   }
 
   render () {
-    const { categories } = this.props;
+    const { 
+      categories,
+      sortPostsByValue,
+      sortPostsBy
+    } = this.props;
+    
     return (
       <div>
         <MainMenu />
-        <SubMenu categories={categories} />
+        <SubMenu 
+          categories={categories}
+          sortPostsBy={sortPostsBy} 
+          sortPostsByValue={sortPostsByValue}
+        />
       </div>
     )
   }
@@ -22,8 +32,19 @@ class Header extends Component {
 
 const mapStateToProps = state => {
   return {
-    categories: state.categories
+    categories: state.categories,
+    sortPostsByValue: state.sortPostsBy
   }
 }
 
-export default connect(mapStateToProps, { fetchCategories }, null, { pure: false })(Header);
+export default connect(
+  mapStateToProps, 
+  { 
+    fetchCategories,
+    sortPostsBy
+  }, 
+  null, 
+  { 
+    pure: false
+  }
+)(Header);

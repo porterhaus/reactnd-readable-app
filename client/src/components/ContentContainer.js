@@ -14,6 +14,13 @@ class Content extends Component {
   }
 
   render () {
+    const {
+      posts,
+      sortPostsBy
+    } = this.props;
+    
+    const orderPosts = _.sortBy(posts, sortPostsBy).reverse();
+    
     return (
       <Container style={
         { 
@@ -28,11 +35,11 @@ class Content extends Component {
             path='/'
             render={
               () => (
-                <PostsList posts={this.props.posts} />
+                <PostsList posts={orderPosts} />
               )
             }
           />
-          {/* <Route exact
+          <Route exact
             path='/posts/new'
             render={
               () => (
@@ -43,21 +50,21 @@ class Content extends Component {
                 </div>
               )
             }
-          /> */}
+          />
           <Route exact 
             path='/:category'
             render={
               ({ match }) => (
                 <PostsList posts={
                 _.filter(
-                  this.props.posts, 
+                  posts, 
                   post => post.category === match.params.category
                 )
                 } />
               )
             }
           />
-          {/* <Route exact
+          <Route exact
             path='/:category/:post_id'
             render={
               ({ match }) => (
@@ -68,7 +75,7 @@ class Content extends Component {
                 </div>
               )
             }
-          /> */}
+          />
         </Switch>
       </Container>
     )
@@ -77,7 +84,8 @@ class Content extends Component {
 
 const mapStateToProps = state => {
   return {
-    posts: _.filter(state.posts, post => !post.deleted)
+    posts: _.filter(state.posts, post => !post.deleted),
+    sortPostsBy: state.sortPostsBy 
   }
 }
 
