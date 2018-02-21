@@ -57,7 +57,7 @@ class Content extends Component {
               ({ match }) => (
                 <PostsList posts={
                 _.filter(
-                  posts, 
+                  orderPosts, 
                   post => post.category === match.params.category
                 )
                 } />
