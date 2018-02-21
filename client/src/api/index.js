@@ -19,3 +19,8 @@ export const getPosts = () => {
 export const getCategories = () => {
   return axios.get(`${BASE_URL}/categories`, { headers: HEADERS })
               .then(categories => categories);}
+
+export const postVote = (id, option) => {
+  return axios.post(`${BASE_URL}/posts/${id}`, { option: option }, { headers: HEADERS })
+              .then(vote => vote);
+}

@@ -6,7 +6,7 @@ import _ from 'lodash';
 import { Container } from 'semantic-ui-react';
 import PostsList from './PostsList';
 
-import { fetchPosts } from '../actions/posts_actions';
+import { fetchPosts, postVote } from '../actions/posts_actions';
 
 class Content extends Component {
   componentDidMount () {
@@ -16,7 +16,8 @@ class Content extends Component {
   render () {
     const {
       posts,
-      sortPostsBy
+      sortPostsBy,
+      postVote
     } = this.props;
     
     const orderPosts = _.sortBy(posts, sortPostsBy).reverse();
@@ -35,7 +36,10 @@ class Content extends Component {
             path='/'
             render={
               () => (
-                <PostsList posts={orderPosts} />
+                <PostsList 
+                  posts={orderPosts}
+                  postVote={postVote} 
+                />
               )
             }
           />
@@ -90,5 +94,5 @@ const mapStateToProps = state => {
 }
 
 export default withRouter(
-  connect(mapStateToProps, { fetchPosts })(Content)
+  connect(mapStateToProps, { fetchPosts , postVote })(Content)
 );

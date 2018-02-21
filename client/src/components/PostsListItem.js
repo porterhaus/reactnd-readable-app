@@ -6,7 +6,7 @@ import '../styles/PostListItem.css';
 import { formatDate } from '../utils';
 
 const PostsListItem = props => {
-  const { post } = props;
+  const { post, postVote } = props;
 
   return (
     <Segment vertical>
@@ -29,7 +29,12 @@ const PostsListItem = props => {
         <Label>{post.voteScore} Votes</Label>
         <Popup
           trigger={
-            <Label as='a'>
+            <Label 
+              as='a'
+              onClick={
+                () => postVote(post.id, 'upVote')
+              }
+            >
               <Icon name='thumbs up'/>
             </Label>
           }
@@ -37,7 +42,12 @@ const PostsListItem = props => {
         />
         <Popup
           trigger={
-            <Label as='a'>
+            <Label 
+              as='a'
+              onClick={
+                () => postVote(post.id, 'downVote')
+              }
+            >
               <Icon name='thumbs down'/>
             </Label>
           }
