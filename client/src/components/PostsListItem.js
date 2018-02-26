@@ -29,7 +29,7 @@ class PostsListItem extends Component {
     return (
       <Segment vertical>
         <Header size='huge'>
-          <Link to='/'>
+          <Link to={`/${post.category}/${post.id}`}>
             {post.title}
           </Link>
           <Header.Subheader>

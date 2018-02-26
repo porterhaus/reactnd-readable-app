@@ -5,6 +5,7 @@ import _ from 'lodash';
 
 import { Container } from 'semantic-ui-react';
 import PostsList from './PostsList';
+import Post from './PostContainer';
 
 import {
   fetchPosts, 
@@ -25,7 +26,7 @@ class Content extends Component {
       deletePost
     } = this.props;
     
-    const orderPosts = _.sortBy(posts, sortPostsBy).reverse();
+    const orderedPosts = _.sortBy(posts, sortPostsBy).reverse();
     
     return (
       <Container style={
@@ -42,7 +43,7 @@ class Content extends Component {
             render={
               () => (
                 <PostsList 
-                  posts={orderPosts}
+                  posts={orderedPosts}
                   postVote={postVote}
                   deletePost={deletePost} 
                 />
@@ -66,25 +67,17 @@ class Content extends Component {
             render={
               ({ match }) => (
                 <PostsList posts={
-                _.filter(
-                  orderPosts, 
-                  post => post.category === match.params.category
-                )
+                  _.filter(
+                    orderedPosts, 
+                    post => post.category === match.params.category
+                  )
                 } />
               )
             }
           />
           <Route exact
             path='/:category/:post_id'
-            render={
-              ({ match }) => (
-                <div>
-                  <h1>
-                    Post Detail about { match.params.category }/{ match.params.post_id }
-                  </h1>
-                </div>
-              )
-            }
+            component={Post}
           />
         </Switch>
       </Container>
