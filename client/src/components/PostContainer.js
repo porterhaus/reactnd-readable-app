@@ -1,19 +1,37 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import { fetchPostComments } from '../actions/posts_actions';
 import PostDetails from './PostDetails';
 import PostComments from './PostComments';
+import { Dimmer, Loader} from 'semantic-ui-react';
 
-class Post extends Component {
-  render () {
+class PostContainer extends Component {
+  componentDidMount() {
+    const { post_id } = this.props.match.params;
+    this.props.fetchPostComments(post_id)
+  }
+
+  render() { 
     const {
-      post
+      post,
+      comments
     } = this.props;
+    
+    if (!post || !comments) {
+      return (
+        <Dimmer active={true} inverted page>
+          <Loader>
+            Loading...
+          </Loader>
+        </Dimmer>
+      )
+    }
 
-    return (
+    return ( 
       <div>
-        <PostDetails data={post}/>
-        <PostComments />
+        <PostDetails post={post} />
+        <PostComments comments={comments} />
       </div>
     )
   }
@@ -21,8 +39,14 @@ class Post extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    post: state.posts[ownProps.match.params.post_id]
+    post: state.posts[ownProps.match.params.post_id],
+    comments: state.selectedPostComments
   }
 }
-
-export default connect(mapStateToProps)(Post);
+ 
+export default connect(
+  mapStateToProps, 
+  { 
+    fetchPostComments 
+  }
+)(PostContainer);

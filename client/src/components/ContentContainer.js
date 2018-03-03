@@ -13,7 +13,7 @@ import {
   deletePost
 } from '../actions/posts_actions';
 
-class Content extends Component {
+class ContentContainer extends Component {
   componentDidMount () {
     this.props.fetchPosts();
   }
@@ -78,6 +78,17 @@ class Content extends Component {
           <Route exact
             path='/:category/:post_id'
             component={Post}
+            // render={
+            //   ({ match }) => (
+            //     <Post post={
+            //       _.find(
+            //         orderedPosts,
+            //         post => post.id === match.params.post_id
+            //       )
+            //     }
+                />
+              )
+            }
           />
         </Switch>
       </Container>
@@ -100,5 +111,5 @@ export default withRouter(
       postVote,
       deletePost 
     }
-  )(Content)
+  )(ContentContainer)
 );

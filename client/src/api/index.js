@@ -16,9 +16,13 @@ export const getPosts = () => {
   return axios.get(`${BASE_URL}/posts`, { headers: HEADERS })
               .then(posts => posts);}
 
-export const getCategories = () => {
-  return axios.get(`${BASE_URL}/categories`, { headers: HEADERS })
-              .then(categories => categories);}
+export const getPost = (id) => {
+  return axios.get(`${BASE_URL}/posts/${id}`, { headers: HEADERS })
+              .then(post => post);}
+
+export const getPostComments = (post_id) => {
+  return axios.get(`${BASE_URL}/posts/${post_id}/comments`, { headers: HEADERS})
+              .then(comments => comments);}
 
 export const postVote = (id, option) => {
   return axios.post(`${BASE_URL}/posts/${id}`, { option: option }, { headers: HEADERS })
@@ -27,3 +31,10 @@ export const postVote = (id, option) => {
 export const deletePost = (id) => {
   return axios.delete(`${BASE_URL}/posts/${id}`, { headers: HEADERS })
               .then(post => post);}
+
+export const getCategories = () => {
+  return axios.get(`${BASE_URL}/categories`, { headers: HEADERS })
+              .then(categories => categories);}
+
+
+

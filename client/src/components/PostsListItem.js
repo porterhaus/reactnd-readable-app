@@ -42,7 +42,7 @@ class PostsListItem extends Component {
           </Header.Subheader>
         </Header>
         <Label.Group size='big'>
-          <Label as={Link} tag to={`/${post.category}`}>
+          <Label as={Link} tag to={`/${post.category}`} color='grey'>
             {_.capitalize(post.category)}
           </Label>
           <Label>{post.commentCount} Comments</Label>
