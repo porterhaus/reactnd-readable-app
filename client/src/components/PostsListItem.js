@@ -14,10 +14,10 @@ import { formatDate } from '../utils';
 
 class PostsListItem extends Component {
   state = {
-    open: false
+    openModal: false
   }
 
-  show = () => this.setState({ open: true });
+  show = () => this.setState({ openModal: true });
 
   render () {
     const { 
@@ -101,11 +101,11 @@ class PostsListItem extends Component {
           </span>
         </Label.Group>
         <Confirm
-          open={this.state.open}
+          open={this.state.openModal}
           header='Delete this Post?'
           content='Are you absolutely sure? This cannot be undone.'
           onCancel={
-            () => this.setState({open: false})
+            () => this.setState({openModal: false})
           }
           onConfirm={
             () => deletePost(post.id)
