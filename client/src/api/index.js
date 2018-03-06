@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { v4 } from 'uuid';
 
 let token = localStorage.token;
 if (!token) {
@@ -32,9 +33,40 @@ export const deletePost = (id) => {
   return axios.delete(`${BASE_URL}/posts/${id}`, { headers: HEADERS })
               .then(post => post);}
 
+export const createPost = data => {
+  return axios.post(`${BASE_URL}/posts`, {
+    ...data,
+    id: v4(),
+    timestamp: Date.now()
+  }, { headers: HEADERS })
+  .then(post => post.data);}
+
+export const editPost = (id, data) => {
+  return axios.put(
+    `${BASE_URL}/posts/${id}`, 
+    data, 
+    { headers: HEADERS }
+  )
+  .then(post => post.data);}
+
 export const getCategories = () => {
   return axios.get(`${BASE_URL}/categories`, { headers: HEADERS })
               .then(categories => categories);}
 
+export const createComment = data => {
+  return axios.post(`${BASE_URL}/comments`, {
+    ...data,
+    id: v4(),
+    timestamp: Date.now()
+  }, 
+  { headers: HEADERS }
+  )
+  .then(comment => comment);}
 
-
+export const editComment = (id, data) => {
+  return axios.put(
+    `${BASE_URL}/comments/${id}`, 
+    data, 
+    { headers: HEADERS }
+  )
+  .then(comment => comment.data);}

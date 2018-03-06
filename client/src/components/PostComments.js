@@ -5,6 +5,7 @@ import {
   Header
 } from 'semantic-ui-react';
 import CommentContainer from './CommentContainer';
+import CommentForm from './CommentForm';
 
 const PostComments = props => {
   const { comments } = props;
@@ -12,23 +13,29 @@ const PostComments = props => {
   // TODO: Order comments by timestamp
 
   return (
-    <Comment.Group size='large'>
+    <div>
       <Header as='h3' dividing>
         Comments
       </Header>
-      {
-        _.isEmpty(comments) ? 
-          (
-            <h4>There are no comments.</h4>
-          )
-          :
-          (
-            _.map(comments, comment => (
-              <CommentContainer key={comment.id} comment={comment} />
-            ))
-          )
-      }
-    </Comment.Group>
+      <Comment.Group size='large'>
+        {
+          _.isEmpty(comments) ? 
+            (
+              <h4>There are no comments.</h4>
+            )
+            :
+            (
+              _.map(comments, comment => (
+                <CommentContainer key={comment.id} comment={comment} />
+              ))
+            )
+        }
+        <CommentForm 
+          isEditing={false} 
+          form={`CommentForm_NEW`}
+        />
+      </Comment.Group>
+    </div>
   )
 }
 

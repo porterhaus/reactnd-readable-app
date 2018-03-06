@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { formatDate } from '../utils';
+import CommentForm from './CommentForm';
+import { editComment } from '../actions/selected_post_comments_actions';
 import { 
   Button,
   Comment,
@@ -31,13 +33,16 @@ class CommentContainer extends Component {
           </Comment.Metadata>
           <Comment.Text>{comment.body}</Comment.Text>
           <Comment.Actions>
-            <a onClick={this.toggleEditForm.bind(this)}>Edit</a>
+            <a onClick={this.toggleEditForm.bind(this)}>
+              {!this.state.isEditing ? 'Edit' : 'Close'}
+            </a>
           </Comment.Actions>
           {this.state.isEditing &&
-            <Form reply>
-              <Form.TextArea />
-              <Button content='Add Reply' labelPosition='left' icon='edit' primary />
-            </Form>
+            <CommentForm
+              form={`CommentForm_${comment.id}`}
+              isEditing={this.state.isEditing} 
+              comment={comment}
+            />
           }
         </Comment.Content>
       </Comment>
@@ -45,4 +50,4 @@ class CommentContainer extends Component {
   }
 }
 
-export default CommentContainer;
+export default connect(undefined, { editComment })(CommentContainer);
