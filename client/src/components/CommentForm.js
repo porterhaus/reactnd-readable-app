@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import {
   Button,
@@ -21,9 +22,11 @@ class CommentForm extends Component {
 
   initializeForm = (comment, initialize) => {
     const data = {
+      'id': comment.id,
       'body': comment.body,
       'author': comment.author,
-      'parentId': comment.parentId
+      'parentId': comment.parentId,
+      'timestamp': comment.timestamp
     }
     
     initialize(data);
@@ -58,9 +61,27 @@ class CommentForm extends Component {
   )
 
   render () {
-    const {isEditing} = this.props;
+    const {
+      isEditing,
+      editComment,
+      handleSubmit,
+      history,
+      location,
+      toggleEditForm
+    } = this.props;
+    
     return (
-      <Form reply>
+      <Form 
+        reply
+        onSubmit={
+          handleSubmit(values => { 
+            console.log(values);
+            editComment(values.id, values, () => {
+              toggleEditForm()
+            });
+          })
+        }
+      >
         <Field 
           name='body'
           component={this.renderTextAreaField}
@@ -108,6 +129,6 @@ const validate = values => {
   return errors;
 }
 
-export default reduxForm({
+export default withRouter(reduxForm({
   validate,
-})(CommentForm);
+})(CommentForm));

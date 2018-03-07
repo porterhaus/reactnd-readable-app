@@ -21,7 +21,10 @@ class CommentContainer extends Component {
   }
 
   render () {
-    const { comment } = this.props;
+    const { 
+      comment,
+      editComment 
+    } = this.props;
 
     return (
       <Comment key={comment.id}>
@@ -37,11 +40,14 @@ class CommentContainer extends Component {
               {!this.state.isEditing ? 'Edit' : 'Close'}
             </a>
           </Comment.Actions>
-          {this.state.isEditing &&
+          {
+            this.state.isEditing &&
             <CommentForm
               form={`CommentForm_${comment.id}`}
               isEditing={this.state.isEditing} 
               comment={comment}
+              editComment={editComment}
+              toggleEditForm={this.toggleEditForm.bind(this)}
             />
           }
         </Comment.Content>
