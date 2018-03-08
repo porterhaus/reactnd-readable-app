@@ -8,7 +8,7 @@ import CommentContainer from './CommentContainer';
 import CommentForm from './CommentForm';
 
 const PostComments = props => {
-  const { comments } = props;
+  const { comments, createComment, postId } = props;
   
   // TODO: Order comments by timestamp
 
@@ -33,6 +33,8 @@ const PostComments = props => {
         <CommentForm 
           isEditing={false} 
           form={`CommentForm_NEW`}
+          createComment={createComment}
+          parentId={postId}
         />
       </Comment.Group>
     </div>

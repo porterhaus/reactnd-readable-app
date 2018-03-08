@@ -50,35 +50,55 @@ class CommentForm extends Component {
     </div>
   )
 
-  renderTextField = (field) => (
-    <Form.Field>
-      <input
-        type='text'
-        {...field.input}
-        placeholder={field.label}
-      />
-    </Form.Field>
+  renderTextField = ({input, label, meta: {touched, error}}) => (
+    <div>
+      <Form.Field>
+        <input
+          type='text'
+          {...input}
+          placeholder={label}
+        />
+      </Form.Field>
+      {
+        touched && 
+          (error && 
+            <Message negative>
+              <Message.Header>Damn dawg... errors!</Message.Header>
+              <p>{error}</p>
+            </Message>
+          )
+      }
+    </div>
   )
 
   render () {
     const {
+      parentId,
       isEditing,
+      createComment,
       editComment,
       handleSubmit,
-      history,
-      location,
-      toggleEditForm
+      toggleEditForm,
+      reset
     } = this.props;
     
     return (
       <Form 
         reply
         onSubmit={
-          handleSubmit(values => { 
-            console.log(values);
-            editComment(values.id, values, () => {
-              toggleEditForm()
-            });
+          handleSubmit(values => {
+            isEditing ?  
+              (editComment(values.id, values, () => {
+                toggleEditForm();
+              }))
+            :
+              (createComment(
+                {
+                  ...values,
+                  parentId: parentId
+                }, () => {
+                  reset();
+              }))
           })
         }
       >

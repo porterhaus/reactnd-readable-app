@@ -61,7 +61,7 @@ export const createComment = data => {
   }, 
   { headers: HEADERS }
   )
-  .then(comment => comment);}
+  .then(comment => comment.data);}
 
 export const editComment = (id, data) => {
   return axios.put(

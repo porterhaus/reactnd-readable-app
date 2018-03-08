@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { fetchPostComments } from '../actions/posts_actions';
+import { createComment } from '../actions/selected_post_comments_actions';
 import PostDetails from './PostDetails';
 import PostComments from './PostComments';
 import { Dimmer, Loader} from 'semantic-ui-react';
@@ -15,7 +16,8 @@ class PostContainer extends Component {
   render() { 
     const {
       post,
-      comments
+      comments,
+      createComment
     } = this.props;
     
     if (!post || !comments) {
@@ -32,7 +34,11 @@ class PostContainer extends Component {
       // Make Container component ???
       <div>
         <PostDetails post={post} />
-        <PostComments comments={comments} />
+        <PostComments 
+          comments={comments} 
+          createComment={createComment}
+          postId={post.id}
+        />
       </div>
     )
   }
@@ -48,6 +54,7 @@ const mapStateToProps = (state, ownProps) => {
 export default connect(
   mapStateToProps, 
   { 
-    fetchPostComments 
+    fetchPostComments,
+    createComment 
   }
 )(PostContainer);
