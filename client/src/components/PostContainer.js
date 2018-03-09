@@ -31,7 +31,6 @@ class PostContainer extends Component {
     }
 
     return ( 
-      // Make Container component ???
       <div>
         <PostDetails post={post} />
         <PostComments 

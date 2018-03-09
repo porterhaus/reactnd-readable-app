@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { formatDate } from '../utils';
 import CommentForm from './CommentForm';
-import { editComment } from '../actions/selected_post_comments_actions';
+import { editComment, deleteComment } from '../actions/selected_post_comments_actions';
 import { 
   Button,
   Comment,
-  Form
+  Form,
+  Icon
 } from 'semantic-ui-react';
 
 class CommentContainer extends Component {
@@ -23,7 +24,8 @@ class CommentContainer extends Component {
   render () {
     const { 
       comment,
-      editComment 
+      editComment,
+      deleteComment, 
     } = this.props;
 
     return (
@@ -37,7 +39,16 @@ class CommentContainer extends Component {
           <Comment.Text>{comment.body}</Comment.Text>
           <Comment.Actions>
             <a onClick={this.toggleEditForm.bind(this)}>
-              {!this.state.isEditing ? 'Edit' : 'Close'}
+              {!this.state.isEditing ? (
+                  <div><Icon name='edit' />Edit</div>
+                ) : (
+                  <div><Icon name='close' />Close</div>
+                )}
+            </a>
+            <a onClick={() => {
+              deleteComment(comment.id);
+            }} >
+              <Icon name='delete' />Delete
             </a>
           </Comment.Actions>
           {
@@ -56,4 +67,4 @@ class CommentContainer extends Component {
   }
 }
 
-export default connect(undefined, { editComment })(CommentContainer);
+export default connect(undefined, { editComment, deleteComment })(CommentContainer);
