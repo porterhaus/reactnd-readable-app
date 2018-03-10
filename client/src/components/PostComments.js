@@ -11,6 +11,7 @@ const PostComments = props => {
   const { comments, createComment, postId } = props;
   
   // TODO: Order comments by timestamp
+  // TODO: Loading component when changing views
 
   return (
     <div>

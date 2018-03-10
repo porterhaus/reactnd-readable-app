@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import { 
@@ -11,10 +12,18 @@ import {
 } from 'semantic-ui-react';
 import '../styles/PostListItem.css';
 import { formatDate } from '../utils';
+import { fetchPostCommentsCount } from '../actions/posts_actions';
 
 class PostsListItem extends Component {
   state = {
-    openModal: false
+    openModal: false,
+    commentCount: 0
+  }
+
+  componentWillMount () {
+    this.props.fetchPostCommentsCount(this.props.post.id, (data) => {
+      this.setState({ commentCount: data.count });
+    })
   }
 
   show = () => this.setState({ openModal: true });
@@ -45,7 +54,7 @@ class PostsListItem extends Component {
           <Label as={Link} tag to={`/${post.category}`} color='grey'>
             {_.capitalize(post.category)}
           </Label>
-          <Label>{post.commentCount} Comments</Label>
+          <Label>{this.state.commentCount ? this.state.commentCount : 0} Comments</Label>
           <Label>{post.voteScore} Votes</Label>
           <Popup
             trigger={
@@ -116,4 +125,4 @@ class PostsListItem extends Component {
   }
 }
 
-export default PostsListItem;
+export default connect(undefined, { fetchPostCommentsCount })(PostsListItem);

@@ -1,8 +1,10 @@
 import * as API from '../api';
+import _ from 'lodash';
 
 export const SORT_POSTS_BY = 'SORT_POSTS_BY';
 export const FETCH_POSTS_SUCCESS = 'FETCH_POSTS_SUCCESS';
 export const FETCH_POST_COMMENTS_SUCCESS = 'FETCH_POST_COMMENTS_SUCCESS';
+export const FETCH_POST_COMMENTS_COUNT = 'FETCH_POST_COMMENTS_COUNT';
 export const POST_VOTE_SUCCESS = 'POST_VOTE_SUCCESS';
 export const DELETE_POST_SUCCESS = 'DELETE_POST_SUCCESS';
 
@@ -49,13 +51,24 @@ export const fetchPosts = () => dispatch => {
     ));
 }
 
-export const fetchPostComments = post_id => dispatch => {
+export const fetchPostComments = postId => dispatch => {
   API
-    .getPostComments(post_id)
+    .getPostComments(postId)
     .then(comments => dispatch(
       fetchPostCommentsSuccess(comments)
     ));
-} 
+}
+
+export const fetchPostCommentsCount = (postId, callback) => dispatch => {
+  API
+    .getPostComments(postId)
+    .then(results => {
+      const comments = _.filter(results.data, comment => !comment.deleted);
+      const count = Object.keys(comments).length;
+      const data = { postId, count }
+      callback(data);
+      dispatch({ type: FETCH_POST_COMMENTS_COUNT, payload: data });
+    });}
 
 export const postVote = (id, option) => dispatch => {
   API
