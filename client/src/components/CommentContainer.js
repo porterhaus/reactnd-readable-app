@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { formatDate } from '../utils';
 import CommentForm from './CommentForm';
-import { editComment, deleteComment, commentVote } from '../actions/selected_post_comments_actions';
 import { 
   Button,
   Comment,
@@ -92,4 +90,4 @@ class CommentContainer extends Component {
   }
 }
 
-export default connect(undefined, { editComment, deleteComment, commentVote })(CommentContainer);
+export default CommentContainer;

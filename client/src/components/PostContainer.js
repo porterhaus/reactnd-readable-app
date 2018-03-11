@@ -1,13 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { fetchPostComments } from '../actions/posts_actions';
-import { createComment } from '../actions/selected_post_comments_actions';
+import { 
+  fetchPostComments,
+  postVote
+} from '../actions/posts_actions';
+import { 
+  createComment, 
+  editComment, 
+  deleteComment, 
+  commentVote,
+} from '../actions/selected_post_comments_actions';
 import PostDetails from './PostDetails';
 import PostComments from './PostComments';
 import { Dimmer, Loader} from 'semantic-ui-react';
 
 class PostContainer extends Component {
+  state = {
+    commentCount: 0
+  }
+
   componentDidMount() {
     const { post_id } = this.props.match.params;
     this.props.fetchPostComments(post_id)
@@ -16,8 +28,12 @@ class PostContainer extends Component {
   render() { 
     const {
       post,
+      postVote,
       comments,
-      createComment
+      createComment,
+      editComment, 
+      deleteComment, 
+      commentVote
     } = this.props;
     
     if (!post || !comments) {
@@ -31,14 +47,22 @@ class PostContainer extends Component {
     }
 
     const orderedComments = _.sortBy(comments, 'voteScore').reverse();
+    const commentsCount = Object.keys(comments).length;
 
     return ( 
       <div>
-        <PostDetails post={post} />
+        <PostDetails 
+          post={post}
+          postVote={postVote}
+          commentsCount={commentsCount}
+        />
         <PostComments 
+          postId={post.id}
           comments={orderedComments} 
           createComment={createComment}
-          postId={post.id}
+          editComment={editComment}
+          deleteComment={deleteComment}
+          commentVote={commentVote}
         />
       </div>
     )
@@ -56,6 +80,10 @@ export default connect(
   mapStateToProps, 
   { 
     fetchPostComments,
-    createComment 
+    postVote,
+    createComment,
+    editComment, 
+    deleteComment, 
+    commentVote
   }
 )(PostContainer);

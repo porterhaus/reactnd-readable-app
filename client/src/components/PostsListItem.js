@@ -11,12 +11,12 @@ import {
   Segment
 } from 'semantic-ui-react';
 import '../styles/PostListItem.css';
+import PostStatsActions from './PostStatsActions';
 import { formatDate } from '../utils';
 import { fetchPostCommentsCount } from '../actions/posts_actions';
 
 class PostsListItem extends Component {
   state = {
-    openModal: false,
     commentCount: 0
   }
 
@@ -25,8 +25,6 @@ class PostsListItem extends Component {
       this.setState({ commentCount: data.count });
     })
   }
-
-  show = () => this.setState({ openModal: true });
 
   render () {
     const { 
@@ -50,75 +48,12 @@ class PostsListItem extends Component {
             </small>
           </Header.Subheader>
         </Header>
-        <Label.Group size='big'>
-          <Label as={Link} tag to={`/${post.category}`} color='grey'>
-            {_.capitalize(post.category)}
-          </Label>
-          <Label>{this.state.commentCount ? this.state.commentCount : 0} Comments</Label>
-          <Label>{post.voteScore} Votes</Label>
-          <Popup
-            trigger={
-              <Label 
-                as='a'
-                onClick={
-                  () => postVote(post.id, 'upVote')
-                }
-              >
-                <Icon name='thumbs up'/>
-              </Label>
-            }
-            content='Up Vote'
-          />
-          <Popup
-            trigger={
-              <Label 
-                as='a'
-                onClick={
-                  () => postVote(post.id, 'downVote')
-                }
-              >
-                <Icon name='thumbs down'/>
-              </Label>
-            }
-            content='Down Vote'
-          />
-          <span style={{ float: 'right' }}>
-            <Popup
-              trigger={
-                <Label 
-                  as='a'
-                  onClick={
-                    () => console.log('Edit post!')
-                  }
-                >
-                  <Icon name='write' />
-                </Label>
-              }
-              content='Edit this Post'
-            />
-            <Popup
-              trigger={
-                <Label 
-                  as='a'
-                  onClick={this.show}
-                >
-                  <Icon name='remove' />
-                </Label>
-              }
-              content='Delete this Post'
-            />
-          </span>
-        </Label.Group>
-        <Confirm
-          open={this.state.openModal}
-          header='Delete this Post?'
-          content='Are you absolutely sure? This cannot be undone.'
-          onCancel={
-            () => this.setState({openModal: false})
-          }
-          onConfirm={
-            () => deletePost(post.id)
-          }
+        
+        <PostStatsActions 
+          post={post}
+          postVote={postVote}
+          commentCount={this.state.commentCount}
+          deletePost={deletePost}
         />
       </Segment>
     )

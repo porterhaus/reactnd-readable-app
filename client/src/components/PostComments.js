@@ -2,23 +2,36 @@ import React from 'react';
 import _ from 'lodash';
 import {
   Comment,
+  Container,
   Header
 } from 'semantic-ui-react';
 import CommentContainer from './CommentContainer';
 import CommentForm from './CommentForm';
 
 const PostComments = props => {
-  const { comments, createComment, postId } = props;
-  
-  // TODO: Order comments by timestamp
-  // TODO: Loading component when changing views
+  const { 
+    postId,
+    comments, 
+    createComment, 
+    editComment, 
+    deleteComment, 
+    commentVote
+  } = props;
 
   return (
-    <div>
-      <Header as='h3' dividing>
+    <Container text>
+      <Header 
+        as='h3' 
+        dividing
+        style={{
+          marginTop: '1.5em'
+        }}
+      >
         Comments
       </Header>
-      <Comment.Group size='large'>
+      <Comment.Group 
+        size='large'
+      >
         {
           _.isEmpty(comments) ? 
             (
@@ -27,18 +40,24 @@ const PostComments = props => {
             :
             (
               _.map(comments, comment => (
-                <CommentContainer key={comment.id} comment={comment} />
+                <CommentContainer 
+                  key={comment.id} 
+                  comment={comment}
+                  editComment={editComment}
+                  deleteComment={deleteComment}
+                  commentVote={commentVote} 
+                />
               ))
             )
         }
-        <CommentForm 
+        <CommentForm
+          parentId={postId} 
           isEditing={false} 
           form={`CommentForm_NEW`}
           createComment={createComment}
-          parentId={postId}
         />
       </Comment.Group>
-    </div>
+    </Container>
   )
 }
 

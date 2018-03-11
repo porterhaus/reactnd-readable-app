@@ -31,8 +31,8 @@ class ContentContainer extends Component {
     return (
       <Container style={
         { 
-          marginTop: '3em',
-          marginBottom: '3em', 
+          // marginTop: '3em',
+          marginBottom: '5em', 
           paddingLeft: '1.5em', 
           paddingRight: '1.5em' 
         }
