@@ -30,11 +30,13 @@ class PostContainer extends Component {
       )
     }
 
+    const orderedComments = _.sortBy(comments, 'voteScore').reverse();
+
     return ( 
       <div>
         <PostDetails post={post} />
         <PostComments 
-          comments={comments} 
+          comments={orderedComments} 
           createComment={createComment}
           postId={post.id}
         />

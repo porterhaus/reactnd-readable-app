@@ -3,6 +3,7 @@ import * as API from '../api';
 export const CREATE_COMMENT_SUCCESS = 'CREATE_COMMENT_SUCCESS';
 export const EDIT_COMMENT_SUCCESS = 'EDIT_COMMENT_SUCCESS';
 export const DELETE_COMMENT_SUCCESS = 'DELETE_COMMENT_SUCCESS';
+export const COMMENT_VOTE_SUCCESS = 'COMMENT_VOTE_SUCCESS';
 
 export const createCommentSuccess = comment => (
   {
@@ -22,6 +23,13 @@ export const deleteCommentSuccess = commentId => (
   {
     type: DELETE_COMMENT_SUCCESS,
     commentId
+  }
+)
+
+export const commentVoteSuccess = comment => (
+  {
+    type: COMMENT_VOTE_SUCCESS,
+    comment
   }
 )
 
@@ -49,4 +57,10 @@ export const deleteComment = (commentId, callback) => dispatch => {
     .then(() => {
       dispatch(deleteCommentSuccess(commentId));
     });
+}
+
+export const commentVote = (id, option) => dispatch => {
+  API
+    .commentVote(id, option)
+    .then(comment => dispatch(commentVoteSuccess(comment.data)));
 }

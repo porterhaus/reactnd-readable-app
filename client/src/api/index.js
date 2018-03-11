@@ -71,6 +71,10 @@ export const editComment = (id, data) => {
   )
   .then(comment => comment.data);}
 
-  export const deleteComment = (id) => {
-    return axios.delete(`${BASE_URL}/comments/${id}`, { headers: HEADERS })
-                .then(comment => comment);}
+export const deleteComment = (id) => {
+  return axios.delete(`${BASE_URL}/comments/${id}`, { headers: HEADERS })
+              .then(comment => comment);}
+
+export const commentVote = (id, option) => {
+  return axios.post(`${BASE_URL}/comments/${id}`, { option: option }, { headers: HEADERS })
+              .then(vote => vote);}

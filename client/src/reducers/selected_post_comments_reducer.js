@@ -5,7 +5,8 @@ import {
 import {
   CREATE_COMMENT_SUCCESS,
   EDIT_COMMENT_SUCCESS,
-  DELETE_COMMENT_SUCCESS
+  DELETE_COMMENT_SUCCESS,
+  COMMENT_VOTE_SUCCESS
 } from '../actions/selected_post_comments_actions';
 
 export function selectedPostComments (state={}, action) {
@@ -24,6 +25,12 @@ export function selectedPostComments (state={}, action) {
 
     case DELETE_COMMENT_SUCCESS:
       return _.omit(state, action.commentId)
+    
+    case COMMENT_VOTE_SUCCESS:
+      return {
+        ...state,
+        [action.comment.id]: action.comment
+      }
   
     default:
       return state;

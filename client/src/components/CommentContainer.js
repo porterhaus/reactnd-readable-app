@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { formatDate } from '../utils';
 import CommentForm from './CommentForm';
-import { editComment, deleteComment } from '../actions/selected_post_comments_actions';
+import { editComment, deleteComment, commentVote } from '../actions/selected_post_comments_actions';
 import { 
   Button,
   Comment,
   Form,
-  Icon
+  Icon,
+  Label
 } from 'semantic-ui-react';
 
 class CommentContainer extends Component {
@@ -25,7 +26,8 @@ class CommentContainer extends Component {
     const { 
       comment,
       editComment,
-      deleteComment, 
+      deleteComment,
+      commentVote 
     } = this.props;
 
     return (
@@ -50,6 +52,29 @@ class CommentContainer extends Component {
             }} >
               <Icon name='delete' />Delete
             </a>
+            <a>
+              <Label size='medium'>
+                {comment.voteScore ? comment.voteScore : 0} Votes
+              </Label>
+            </a>
+            <Label 
+                as='a'
+                size='medium'
+                onClick={
+                  () => commentVote(comment.id, 'upVote')
+                }
+              >
+              <Icon name='thumbs up'/>
+            </Label>
+            <Label 
+                as='a'
+                size='medium'
+                onClick={
+                  () => commentVote(comment.id, 'downVote')
+                }
+              >
+              <Icon name='thumbs down'/>
+            </Label>
           </Comment.Actions>
           {
             this.state.isEditing &&
@@ -67,4 +92,4 @@ class CommentContainer extends Component {
   }
 }
 
-export default connect(undefined, { editComment, deleteComment })(CommentContainer);
+export default connect(undefined, { editComment, deleteComment, commentVote })(CommentContainer);
