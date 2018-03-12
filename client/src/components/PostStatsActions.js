@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import _ from 'lodash';
 import { 
   Confirm,
+  Icon,
   Label,
+  Popup,
   Segment
 } from 'semantic-ui-react';
-import PostActions from './PostActions';
-import PostStats from './PostStats';
-import '../styles/PostListItem.css';
+import '../styles/Post.css';
 
 class PostStatsActions extends Component {
   state = {
@@ -24,16 +26,62 @@ class PostStatsActions extends Component {
     } = this.props;
 
     return (
-      <span>
+      <div>
         <Label.Group size='big'>
-          <PostStats
-            post={post} 
-            commentCount={commentCount}
+          <Label as={Link} tag to={`/${post.category}`} color='grey'>
+            {_.capitalize(post.category)}
+          </Label>
+          <Label>{commentCount ? commentCount : 0} Comments</Label>
+          <Label>{post.voteScore} Votes</Label>
+          <Popup
+            trigger={
+              <Label 
+                as='a'
+                onClick={
+                  () => postVote(post.id, 'upVote')
+                }
+              >
+                <Icon name='thumbs up'/>
+              </Label>
+            }
+            content='Up Vote'
           />
-          <PostActions 
-            post={post}
-            postVote={postVote}
-            show={this.show}
+          <Popup
+            trigger={
+              <Label 
+                as='a'
+                onClick={
+                  () => postVote(post.id, 'downVote')
+                }
+              >
+                <Icon name='thumbs down'/>
+              </Label>
+            }
+            content='Down Vote'
+          />
+          <Popup
+            trigger={
+              <Label 
+                as='a'
+                onClick={
+                  () => console.log('Edit post!')
+                }
+              >
+                <Icon name='write' />
+              </Label>
+            }
+            content='Edit this Post'
+          />
+          <Popup
+            trigger={
+              <Label 
+                as='a'
+                onClick={this.show}
+              >
+                <Icon name='remove' />
+              </Label>
+            }
+            content='Delete this Post'
           />
         </Label.Group>
         <Confirm
@@ -47,7 +95,7 @@ class PostStatsActions extends Component {
             () => deletePost(post.id)
           }
         />
-      </span>
+      </div>
     )
   }
 }

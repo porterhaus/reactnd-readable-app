@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import { 
   fetchPostComments,
-  postVote
+  postVote,
+  deletePost
 } from '../actions/posts_actions';
 import { 
   createComment, 
@@ -29,6 +30,7 @@ class PostContainer extends Component {
     const {
       post,
       postVote,
+      deletePost,
       comments,
       createComment,
       editComment, 
@@ -55,6 +57,7 @@ class PostContainer extends Component {
           post={post}
           postVote={postVote}
           commentsCount={commentsCount}
+          deletePost={deletePost}
         />
         <PostComments 
           postId={post.id}
@@ -81,6 +84,7 @@ export default connect(
   { 
     fetchPostComments,
     postVote,
+    deletePost,
     createComment,
     editComment, 
     deleteComment, 

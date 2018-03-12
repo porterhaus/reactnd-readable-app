@@ -10,7 +10,7 @@ import {
   Popup,
   Segment
 } from 'semantic-ui-react';
-import '../styles/PostListItem.css';
+import '../styles/Post.css';
 import PostStatsActions from './PostStatsActions';
 import { formatDate } from '../utils';
 import { fetchPostCommentsCount } from '../actions/posts_actions';

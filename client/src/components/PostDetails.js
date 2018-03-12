@@ -10,12 +10,14 @@ import {
   Popup,
   Segment
 } from 'semantic-ui-react';
+import PostStatsActions from './PostStatsActions';
 
 const PostDetails = props => {
   const {
     commentsCount, 
+    deletePost,
     post,
-    postVote
+    postVote,
   } = props;
   
   return (
@@ -48,7 +50,13 @@ const PostDetails = props => {
             marginTop: '0',
           }}
         />
-        <Label.Group size='big'>
+        <PostStatsActions 
+          post={post}
+          postVote={postVote}
+          commentCount={commentsCount}
+          deletePost={deletePost}
+        />
+        {/* <Label.Group size='big'>
           <Label as={Link} tag to={`/${post.category}`} color='grey'>
             {_.capitalize(post.category)}
           </Label>
@@ -84,7 +92,7 @@ const PostDetails = props => {
           >
             <Icon name='remove' />
           </Label>
-        </Label.Group>
+        </Label.Group> */}
       </Container>
     </Segment>
     <Segment style={{ padding: '1em 0em' }} vertical>

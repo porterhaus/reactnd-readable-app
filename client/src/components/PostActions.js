@@ -13,7 +13,7 @@ const PostActions = props => {
   } = props;
 
   return (
-    <span style={{ float: 'right' }}>
+    <span>
       <Popup
         trigger={
           <Label 
