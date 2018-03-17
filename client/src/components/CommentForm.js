@@ -149,6 +149,6 @@ const validate = values => {
   return errors;
 }
 
-export default withRouter(reduxForm({
-  validate,
-})(CommentForm));
+export default withRouter(
+  reduxForm({validate})(CommentForm)
+);

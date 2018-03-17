@@ -6,6 +6,7 @@ import _ from 'lodash';
 import { Container } from 'semantic-ui-react';
 import PostsList from './PostsList';
 import PostContainer from './PostContainer';
+import PostForm from './PostForm';
 
 import {
   fetchPosts, 
@@ -54,11 +55,7 @@ class ContentContainer extends Component {
             path='/posts/new'
             render={
               () => (
-                <div>
-                  <h1>
-                    New Post
-                  </h1>
-                </div>
+                <PostForm form={`PostForm_NEW`} />
               )
             }
           />
