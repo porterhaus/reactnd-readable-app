@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchCategories } from '../actions/categories_actions';
-import { sortPostsBy } from '../actions/posts_actions';
-// New Post success action pass to main menu
+import { createPost, sortPostsBy } from '../actions/posts_actions';
 import MainMenu from './MainMenu';
 import SubMenu from './SubMenu';
 import { Button, Icon, Modal } from 'semantic-ui-react';
@@ -15,13 +14,16 @@ class Header extends Component {
   render () {
     const { 
       categories,
+      createPost,
       sortPostsByValue,
       sortPostsBy
     } = this.props;
     
     return (
       <div>
-        <MainMenu/>
+        <MainMenu
+          createPost={createPost}
+        />
         <SubMenu 
           categories={categories}
           sortPostsBy={sortPostsBy} 
@@ -42,6 +44,7 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps, 
   { 
+    createPost,
     fetchCategories,
     sortPostsBy
   }, 

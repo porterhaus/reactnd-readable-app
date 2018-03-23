@@ -40,12 +40,15 @@ class PostFormModal extends Component {
             id='post-form'
             size='big'
             name="post" 
-            onSubmit={handleSubmit(values => {
-              console.log(values);
-              this.props.reset();
-              this.props.onClose();
-              this.props.history.push('/');
-            })}
+            onSubmit={
+              handleSubmit(values => {
+                this.props.createPost(values, () => {
+                  this.props.reset();
+                  this.props.onClose();
+                  this.props.history.push('/');
+                });
+              }
+            )}
           >
             <Field 
               name='category' 
