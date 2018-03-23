@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import MainMenu from './MainMenu';
 import { fetchCategories } from '../actions/categories_actions';
 import { sortPostsBy } from '../actions/posts_actions';
+// New Post success action pass to main menu
+import MainMenu from './MainMenu';
 import SubMenu from './SubMenu';
+import { Button, Icon, Modal } from 'semantic-ui-react';
 
 class Header extends Component {
   componentDidMount () {
@@ -19,7 +21,7 @@ class Header extends Component {
     
     return (
       <div>
-        <MainMenu />
+        <MainMenu/>
         <SubMenu 
           categories={categories}
           sortPostsBy={sortPostsBy} 

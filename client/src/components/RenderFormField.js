@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, Input } from 'semantic-ui-react';
+import { Form, Input, Message } from 'semantic-ui-react';
 
 export default function renderFormField (
 { input, 
@@ -19,7 +19,17 @@ export default function renderFormField (
   return (
     <Form.Field>
       <As {...props} {...input} value={input.value} type={type} label={label} placeholder={placeholder} onChange={handleChange} />
-      {touched && ((error && <span><i>{error}</i></span>) || (warning && <span><i>{warning}</i></span>))}
+      {touched && (
+        (error &&
+          <Message negative>
+            <Message.Header>Damn, dawg, but...</Message.Header>
+            <p>{error}</p>
+          </Message> 
+        ) || 
+        (warning && 
+          {warning}
+        )
+      )}
     </Form.Field>
   );
 }

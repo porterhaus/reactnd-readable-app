@@ -10,7 +10,7 @@ import {
 } from 'semantic-ui-react';
 import renderFormField from './RenderFormField';
 
-const required = value => (value ? undefined : 'Required');
+const required = value => (value ? undefined : 'This field is required!');
 const minLength = max => value =>
   value && value.length < max ? `Must be ${max} characters or less` : undefined
 const minLength150 = minLength(150)
