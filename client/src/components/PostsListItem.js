@@ -12,7 +12,7 @@ import {
 } from 'semantic-ui-react';
 import '../styles/Post.css';
 import PostStatsActions from './PostStatsActions';
-import { formatDate } from '../utils';
+import { formatDate, shorten } from '../utils';
 import { fetchPostCommentsCount } from '../actions/posts_actions';
 
 class PostsListItem extends Component {
@@ -40,7 +40,7 @@ class PostsListItem extends Component {
             {post.title}
           </Link>
           <Header.Subheader>
-            {post.body}
+            {shorten(post.body, 250)}
           </Header.Subheader>
           <Header.Subheader>
             <small>

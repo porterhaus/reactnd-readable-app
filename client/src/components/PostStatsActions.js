@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import _ from 'lodash';
 import { 
   Confirm,
@@ -92,7 +92,9 @@ class PostStatsActions extends Component {
             () => this.setState({openModal: false})
           }
           onConfirm={
-            () => deletePost(post.id)
+            () => deletePost(post.id, () => {
+              this.props.history.push('/');
+            })
           }
         />
       </div>
@@ -100,4 +102,4 @@ class PostStatsActions extends Component {
   }
 }
 
-export default PostStatsActions;
+export default withRouter(PostStatsActions);

@@ -93,8 +93,11 @@ export const createPost = (data, callback) => dispatch => {
     });
 }
 
-export const deletePost = (id) => dispatch => {
+export const deletePost = (id, callback) => dispatch => {
   API
     .deletePost(id)
-    .then(() => dispatch(deletePostSuccess(id)));
+    .then(() => {
+      callback();
+      dispatch(deletePostSuccess(id))
+    });
 }

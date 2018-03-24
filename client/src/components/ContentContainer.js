@@ -51,14 +51,14 @@ class ContentContainer extends Component {
               )
             }
           />
-          <Route exact
+          {/* <Route exact
             path='/posts/new'
             render={
               () => (
                 <PostForm form={`PostForm_NEW`} />
               )
             }
-          />
+          /> */}
           <Route exact 
             path='/:category'
             render={
