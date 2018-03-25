@@ -19,6 +19,27 @@ const minLength = max => value =>
 const minLength150 = minLength(150)
 
 class PostFormModal extends Component {
+  componentDidMount () {
+    const { isEditing } = this.props;
+
+    if (isEditing) {
+      this.handleInitialize();
+    }
+  }
+
+  handleInitialize () {
+    const initData = {
+      'id': this.props.post.id,
+      'title':  this.props.post.title,
+      'author': this.props.post.author,
+      'category': this.props.post.category,
+      'body': this.props.post.body,
+      'timestamp': this.props.post.timestamp
+    }
+
+    this.props.initialize(initData);
+  }
+
   render () {
     const options = [
       {key:'react', value:'react', text: 'React'},
@@ -26,7 +47,13 @@ class PostFormModal extends Component {
       {key:'udacity', value:'udacity', text: 'Udacity'},
     ];
 
-    const{ handleSubmit, pristine, submitting } = this.props; 
+    const { 
+      handleSubmit, 
+      pristine, 
+      submitting,
+      post,
+      isEditing
+    } = this.props; 
 
     return (
       <Modal
@@ -42,11 +69,18 @@ class PostFormModal extends Component {
             name="post" 
             onSubmit={
               handleSubmit(values => {
-                this.props.createPost(values, () => {
-                  this.props.reset();
-                  this.props.onClose();
-                  this.props.history.push('/');
-                });
+                isEditing ? 
+                  (this.props.editPost(values.id, values, () => {
+                    console.log(values)
+                    this.props.reset();
+                    this.props.onClose();
+                  }))
+                :
+                  (this.props.createPost(values, () => {
+                    this.props.reset();
+                    this.props.onClose();
+                    this.props.history.push('/');
+                  }));
               }
             )}
           >
@@ -80,7 +114,7 @@ class PostFormModal extends Component {
               as={Form.TextArea} 
               type='text' 
               placeholder='Write your Post'
-              validate={[required, minLength150]}
+              validate={required}
             />
           </Form>
         </Modal.Content>
@@ -90,7 +124,8 @@ class PostFormModal extends Component {
             primary 
             size='big' 
             loading={submitting} 
-            disabled={pristine || submitting}>
+            // disabled={pristine || submitting}
+          >
               Submit
           </Button>
           <Button 
@@ -107,5 +142,5 @@ class PostFormModal extends Component {
 }
 
 export default withRouter(
-  reduxForm({ form: 'PostFormModal', enableReinitialize: true})(PostFormModal)
+  reduxForm({ form: 'PostFormModal'})(PostFormModal)
 );

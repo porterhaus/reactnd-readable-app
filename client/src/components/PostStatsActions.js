@@ -8,20 +8,27 @@ import {
   Popup,
   Segment
 } from 'semantic-ui-react';
+import PostFormModal from './PostFormModal';
 import '../styles/Post.css';
 
 class PostStatsActions extends Component {
   state = {
-    openModal: false
+    openDeleteModal: false,
+    editPostModalOpen: false
   }
   
-  show = () => this.setState({ openModal: true });
-  
+  openDeleteModal = () => this.setState({ openDeleteModal: true });
+  openEditModal = () => this.setState({ editPostModalOpen: true });
+  closeEditModal = () => {
+    this.setState({ editPostModalOpen: false });
+  }
+
   render () {
     const {
       post,
       postVote,
       commentCount,
+      editPost,
       deletePost
     } = this.props;
 
@@ -63,9 +70,7 @@ class PostStatsActions extends Component {
             trigger={
               <Label 
                 as='a'
-                onClick={
-                  () => console.log('Edit post!')
-                }
+                onClick={this.openEditModal}
               >
                 <Icon name='write' />
               </Label>
@@ -76,7 +81,7 @@ class PostStatsActions extends Component {
             trigger={
               <Label 
                 as='a'
-                onClick={this.show}
+                onClick={this.openDeleteModal}
               >
                 <Icon name='remove' />
               </Label>
@@ -85,7 +90,7 @@ class PostStatsActions extends Component {
           />
         </Label.Group>
         <Confirm
-          open={this.state.openModal}
+          open={this.state.openDeleteModal}
           header='Delete this Post?'
           content='Are you absolutely sure? This cannot be undone.'
           onCancel={
@@ -93,9 +98,17 @@ class PostStatsActions extends Component {
           }
           onConfirm={
             () => deletePost(post.id, () => {
-              this.props.history.push('/');
+              this.props.history.push('/'); // this doesn't work. 
             })
           }
+        />
+        <PostFormModal 
+          form={`PostForm_${post.id}`}
+          isEditing={true}
+          editPost={editPost}
+          post={post}
+          open={this.state.editPostModalOpen}
+          onClose={this.closeEditModal}
         />
       </div>
     )

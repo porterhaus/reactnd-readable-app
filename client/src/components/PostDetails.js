@@ -14,7 +14,8 @@ import PostStatsActions from './PostStatsActions';
 
 const PostDetails = props => {
   const {
-    commentsCount, 
+    commentsCount,
+    editPost, 
     deletePost,
     post,
     postVote,
@@ -54,6 +55,7 @@ const PostDetails = props => {
           post={post}
           postVote={postVote}
           commentCount={commentsCount}
+          editPost={editPost}
           deletePost={deletePost}
         />
         {/* <Label.Group size='big'>

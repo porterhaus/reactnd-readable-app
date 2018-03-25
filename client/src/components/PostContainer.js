@@ -4,6 +4,7 @@ import _ from 'lodash';
 import { 
   fetchPostComments,
   postVote,
+  editPost,
   deletePost
 } from '../actions/posts_actions';
 import { 
@@ -30,6 +31,7 @@ class PostContainer extends Component {
     const {
       post,
       postVote,
+      editPost,
       deletePost,
       comments,
       createComment,
@@ -57,6 +59,7 @@ class PostContainer extends Component {
           post={post}
           postVote={postVote}
           commentsCount={commentsCount}
+          editPost={editPost}
           deletePost={deletePost}
         />
         <PostComments 
@@ -84,6 +87,7 @@ export default connect(
   { 
     fetchPostComments,
     postVote,
+    editPost,
     deletePost,
     createComment,
     editComment, 

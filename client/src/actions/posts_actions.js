@@ -7,6 +7,7 @@ export const FETCH_POST_COMMENTS_SUCCESS = 'FETCH_POST_COMMENTS_SUCCESS';
 export const FETCH_POST_COMMENTS_COUNT = 'FETCH_POST_COMMENTS_COUNT';
 export const POST_VOTE_SUCCESS = 'POST_VOTE_SUCCESS';
 export const CREATE_POST_SUCCESS = 'CREATE_POST_SUCCESS';
+export const EDIT_POST_SUCCESS = 'EDIT_POST_SUCCESS';
 export const DELETE_POST_SUCCESS = 'DELETE_POST_SUCCESS';
 
 export const sortPostsBy = sortby => (
@@ -33,6 +34,13 @@ export const postVoteSuccess = post => (
 export const createPostSuccess = post => (
   {
     type: CREATE_POST_SUCCESS,
+    post
+  }
+)
+
+export const editPostSuccess = post => (
+  {
+    type: EDIT_POST_SUCCESS,
     post
   }
 )
@@ -90,6 +98,15 @@ export const createPost = (data, callback) => dispatch => {
     .then(post => {
       callback()
       dispatch(createPostSuccess(post))
+    });
+}
+
+export const editPost = (id, data, callback) => dispatch => {
+  API
+    .editPost(id, data)
+    .then(post => {
+      callback()
+      dispatch(editPostSuccess(post))
     });
 }
 

@@ -13,7 +13,7 @@ import {
 import '../styles/Post.css';
 import PostStatsActions from './PostStatsActions';
 import { formatDate, shorten } from '../utils';
-import { fetchPostCommentsCount } from '../actions/posts_actions';
+import { fetchPostCommentsCount, editPost } from '../actions/posts_actions';
 
 class PostsListItem extends Component {
   state = {
@@ -30,6 +30,7 @@ class PostsListItem extends Component {
     const { 
       post, 
       postVote,
+      editPost,
       deletePost
     } = this.props;
   
@@ -54,10 +55,11 @@ class PostsListItem extends Component {
           postVote={postVote}
           commentCount={this.state.commentCount}
           deletePost={deletePost}
+          editPost={editPost}
         />
       </Segment>
     )
   }
 }
 
-export default connect(undefined, { fetchPostCommentsCount })(PostsListItem);
+export default connect(undefined, { fetchPostCommentsCount, editPost })(PostsListItem);

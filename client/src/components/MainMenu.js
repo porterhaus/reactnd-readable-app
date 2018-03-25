@@ -40,6 +40,7 @@ class MainMenu extends Component {
           </Container>
         </Menu>
         <PostFormModal
+          form={'PostForm_New'}
           createPost={this.props.createPost}
           open={this.state.newPostModalOpen}
           onClose={this.handleClose}
