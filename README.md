@@ -41,6 +41,11 @@ The project uses the following dependencies:
 * UUID
 * Lodash
 
+## TODOS
+
+* Add comments to codebase
+* Convert CommentsForm component to use renderFieldComponent
+
 ## Who am I
 
 https://github.com/porterhaus
