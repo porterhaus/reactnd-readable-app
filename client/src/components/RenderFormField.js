@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Input, Message } from 'semantic-ui-react';
 
+// https://gist.github.com/mairh/233f6b4ffdbaaed8ec75bb0bef087e8f
+// Was having a hard time making the semantic form elements play nice.
 export default function renderFormField (
 { input, 
   type, 
