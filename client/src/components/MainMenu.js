@@ -15,8 +15,7 @@ class MainMenu extends Component {
     newPostModalOpen: false
   }
 
-  handleOpen = () => this.setState({ newPostModalOpen: true });
-  handleClose = () => this.setState({ newPostModalOpen: false });
+  toggleModal = () => this.setState({ newPostModalOpen: !this.state.newPostModalOpen });
 
   render () {
     return (
@@ -29,9 +28,7 @@ class MainMenu extends Component {
             <Menu.Item position='right'>
               <Button icon 
                 labelPosition='left'
-                // as={Link}
-                // to='/posts/new'
-                onClick={this.handleOpen}
+                onClick={this.toggleModal}
               >
                 <Icon name='add'/>
                 New Post
@@ -43,7 +40,7 @@ class MainMenu extends Component {
           form={'PostForm_New'}
           createPost={this.props.createPost}
           open={this.state.newPostModalOpen}
-          onClose={this.handleClose}
+          onClose={this.toggleModal}
           history={this.props.history}
         />
       </div>

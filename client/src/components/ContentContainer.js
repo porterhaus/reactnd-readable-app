@@ -6,7 +6,6 @@ import _ from 'lodash';
 import { Container } from 'semantic-ui-react';
 import PostsList from './PostsList';
 import PostContainer from './PostContainer';
-import PostForm from './PostForm';
 
 import {
   fetchPosts, 
@@ -32,7 +31,6 @@ class ContentContainer extends Component {
     return (
       <Container style={
         { 
-          // marginTop: '3em',
           marginBottom: '5em', 
           paddingLeft: '1.5em', 
           paddingRight: '1.5em' 
@@ -51,14 +49,6 @@ class ContentContainer extends Component {
               )
             }
           />
-          {/* <Route exact
-            path='/posts/new'
-            render={
-              () => (
-                <PostForm form={`PostForm_NEW`} />
-              )
-            }
-          /> */}
           <Route exact 
             path='/:category'
             render={
@@ -79,17 +69,6 @@ class ContentContainer extends Component {
           <Route exact
             path='/:category/:post_id'
             component={PostContainer}
-            // render={
-            //   ({ match }) => (
-            //     <Post post={
-            //       _.find(
-            //         orderedPosts,
-            //         post => post.id === match.params.post_id
-            //       )
-            //     }
-                />
-              )
-            }
           />
         </Switch>
       </Container>

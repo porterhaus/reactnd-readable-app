@@ -8,16 +8,14 @@ import {
 import CommentContainer from './CommentContainer';
 import CommentForm from './CommentForm';
 
-const PostComments = props => {
-  const { 
-    postId,
-    comments, 
-    createComment, 
-    editComment, 
-    deleteComment, 
-    commentVote
-  } = props;
-
+const PostComments = ({
+  postId,
+  comments, 
+  createComment, 
+  editComment, 
+  deleteComment, 
+  commentVote
+}) => {
   return (
     <Container text>
       <Header 

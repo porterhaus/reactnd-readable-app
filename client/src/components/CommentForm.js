@@ -7,6 +7,18 @@ import {
   Message 
 } from 'semantic-ui-react';
 
+const validate = values => {
+  const errors = {};
+  if(!values.body) {
+    errors.body = 'You must enter some text!'
+  }
+  if (!values.author) {
+    errors.author = 'Please enter an author!'
+  }
+  return errors;
+}
+
+
 class CommentForm extends Component {
   componentDidMount () {
     const { 
@@ -21,12 +33,13 @@ class CommentForm extends Component {
   }
 
   initializeForm = (comment, initialize) => {
+    const { id, body, author, parentId, timestamp } = comment;
     const data = {
-      'id': comment.id,
-      'body': comment.body,
-      'author': comment.author,
-      'parentId': comment.parentId,
-      'timestamp': comment.timestamp
+      id,
+      body,
+      author,
+      parentId,
+      timestamp
     }
     
     initialize(data);
@@ -136,17 +149,6 @@ class CommentForm extends Component {
       </Form>
     )
   }
-}
-
-const validate = values => {
-  const errors = {};
-  if(!values.body) {
-    errors.body = 'You must enter some text!'
-  }
-  if (!values.author) {
-    errors.author = 'Please enter an author!'
-  }
-  return errors;
 }
 
 export default withRouter(

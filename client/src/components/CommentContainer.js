@@ -10,6 +10,11 @@ import {
 } from 'semantic-ui-react';
 
 class CommentContainer extends Component {
+  constructor () {
+    super();
+    this.toggleEditForm = this.toggleEditForm.bind(this);
+  }
+  
   state = {
     isEditing: false
   }
@@ -38,7 +43,7 @@ class CommentContainer extends Component {
           </Comment.Metadata>
           <Comment.Text>{comment.body}</Comment.Text>
           <Comment.Actions>
-            <a onClick={this.toggleEditForm.bind(this)}>
+            <a onClick={this.toggleEditForm}>
               {!this.state.isEditing ? (
                   <div><Icon name='edit' />Edit</div>
                 ) : (
