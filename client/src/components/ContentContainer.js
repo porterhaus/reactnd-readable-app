@@ -6,6 +6,7 @@ import _ from 'lodash';
 import { Container } from 'semantic-ui-react';
 import PostsList from './PostsList';
 import PostContainer from './PostContainer';
+import NoRouteMatch from './NoRouteMatch';
 
 import {
   fetchPosts, 
@@ -20,6 +21,7 @@ class ContentContainer extends Component {
 
   render () {
     const {
+      categories,
       posts,
       sortPostsBy,
       postVote,
@@ -53,22 +55,38 @@ class ContentContainer extends Component {
             path='/:category'
             render={
               ({ match }) => (
-                <PostsList 
-                  posts={
-                    _.filter(
-                      orderedPosts, 
-                      post => post.category === match.params.category
-                    )
-                  }
-                  postVote={postVote}
-                  deletePost={deletePost}
-                />
+                _.find(categories, {name: match.params.category}) ? (
+                    <PostsList 
+                      posts={
+                        _.filter(
+                          orderedPosts, 
+                          post => post.category === match.params.category
+                        )
+                      }
+                      postVote={postVote}
+                      deletePost={deletePost}
+                    />
+                  )
+                  :
+                  (
+                    <NoRouteMatch />
+                  )
               )
             }
           />
           <Route exact
             path='/:category/:post_id'
-            component={PostContainer}
+            render={
+              ({match}) => (
+                _.find(orderedPosts,{id: match.params.post_id}) ? (
+                  <PostContainer match={match}/>
+                )
+                :
+                (
+                  <NoRouteMatch />
+                )
+              )
+            }
           />
         </Switch>
       </Container>
@@ -79,6 +97,7 @@ class ContentContainer extends Component {
 const mapStateToProps = state => {
   return {
     posts: _.filter(state.posts, post => !post.deleted),
+    categories: state.categories,
     sortPostsBy: state.sortPostsBy 
   }
 }
@@ -87,7 +106,7 @@ export default withRouter(
   connect(
     mapStateToProps, 
     { 
-      fetchPosts , 
+      fetchPosts, 
       postVote,
       deletePost 
     }
